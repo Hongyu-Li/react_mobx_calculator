@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
-import './App.css';
+import {observer } from 'mobx-react';
 
+@observer
 class App extends Component {
-  render() {
+  render(){
+    const {store} = this.props;
     return <div>
-      Hello World!
+      <button onClick={store.addNumber}>Plus 1</button>
+      Now the number is: {store.number}
     </div>
-  }
+ }s
 }
 
 export default App;
