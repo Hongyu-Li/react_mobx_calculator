@@ -1,68 +1,226 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MobX
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+The Mobx design principle is:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+*Anything that can be derived from the application state, should be derived. Automatically.*
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### What is MobX?
 
-### `yarn build`
+MobX is a simple and scalable **state management library** transparently applying functional reactive programming (TFRP). The workflow of MobX could be described as below.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![image](./flow.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+MobX has only a few core concepts. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Observable State: Any value that can be mutated and might serve as source for computed values is state. 
+* Computed Values: Any value that can be computed by using a function that purely operates on other observable values. With MobX you can define values that will be derived automatically when relevant data is modified.
+* Actions: Actions are the only thing that could modify state.
+* Reactions: A reaction is a bit similar to a computed value, but instead of producing a new value it produces a side effect. Reactions bridge reactive and imperative programming for things like printing to the console, making network requests, incrementally updating the UI, etc. 
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### How to use MobX with react?
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Step 1: Install MobX and MobX-react
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```node
+npm install mobx --save;
+npm install mobx-react --save;
+```
 
-## Learn More
+#### Step 2: Define observable state (Similar to actions&reducers in redux)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```typescript
+import { observable, action, computed } from 'mobx';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+class CountStore {
+  @observable num = 0;            
+  @computed get getDoubleCount() {
+    return this.num * 2;
+  }
+  @action.bound onIncrement() {
+    this.num = this.num + 1;
+  }
+  @action.bound onDecrement() {
+    this.num = this.num - 1;
+  }
+}
+export default CountStore;
+```
 
-### Code Splitting
+#### Step 3: Share store to all child components by using provider (Similar to bind all reducers to store in redux)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```typescript
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'mobx-react';
+import Counter from './Counter';
+import CountStore from './CountStore';
 
-### Analyzing the Bundle Size
+const stores = {
+  count: new CountStore(),
+};
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+render(
+  <Provider {...stores}>
+    <Counter />
+  </Provider>,
+  document.getElementById('app'),
+);
+```
 
-### Making a Progressive Web App
+#### Step 4: Inject store into component (Similar to connect in redux)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```typescript
+import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 
-### Advanced Configuration
+@inject('count')
+@observer
+class Counter extends Component {
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+  render() {
+    const { count } = this.props;
 
-### Deployment
+    return (
+      <div>
+        <p>
+          Count: {count.num}
+        </p>
+        <p>
+          Double count: {count.getDoubleCount}
+        </p>
+        <div>
+          <button onClick={count.onIncrement}>+1</button>
+          <button onClick={count.onDecrement}>-1</button>
+        </div>
+      </div>
+    );
+  }
+}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+export default Counter;
+```
 
-### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### MobX vs Redux?
+
+Redux is also an excellent state management library. You may wondering what their differences are. Generally, I think MobX and Redux differ at: 
+
+* `Effectiveness` As is shown in part 2, it's very easy and concise to use MobX in react app. However, when it comes to redux, we have to write a bunch of codes to state our actions and reducers which would lead to a lot of duplications. 
+* `Scalability` Since Redux is more opinionated and expects the reducer functions to be pure, it is easier to scale than MobX. Pure functions are easier to test since they are predictable and simple. This results in maintainable code that can scale. 
+
+
+
+### Demo: Calculator by using MobX and React
+
+In this demo, I used react with MobX to create a mini calculator. You could find all source codes in this repository.  
+
+
+
+###Things you might want to know while playing with MobX
+
+Actually, when I implemented the mini calculator demo with using MobX, I've met a tiny but knotty problem. I would write them down here in case you wanna know. 
+
+**ISSUE**: Support for the experimental syntax 'decorators-legacy' isn't currently enabled
+
+I created react app by using `create-react-app` library, however decorators are only supported if you're using TypeScript which means that you cannot use them with normal JS. For this problem, there are two solutions:
+
+* **Solution 1**: use MobX without decorator syntax. For example, we could modify code in part 2 without decorator syntax like this. 
+
+  ```typescript
+  # Step 2
+  class CountStore {
+    num = 0;            
+    get getDoubleCount() {
+      return this.num * 2;
+    }
+    onIncrement() {
+      this.num = this.num + 1;
+    }
+    onDecrement() {
+      this.num = this.num - 1;
+    }
+  }
+  decorate(CountStore, {
+    num: observable,
+    getDoubleCount: computed
+    onIncrement: action.bound
+    onDecrement: action.bound
+  })
+  export default CountStore;
+  
+  # Step 4
+  class Counter extends Component {
+    render() {
+      const { count } = this.props;
+      return (
+        <div>
+          <p>
+            Count: {count.num}
+          </p>
+          <p>
+            Double count: {count.getDoubleCount}
+          </p>
+          <div>
+            <button onClick={count.onIncrement}>+1</button>
+            <button onClick={count.onDecrement}>-1</button>
+          </div>
+        </div>
+      );
+    }
+  }
+  
+  export default inject('count')(observer(Counter));
+  ```
+
+* **Solution 2**: enable decorator syntax
+
+  * Firstly, you should run `yarn eject` to eject all configuration files which are hided by `create-react-app`. 
+  * Secondly, you sould find `require.resolve('babel-plugin-named-asset-import')` in `webpack.config.js` file in config folder and then modify the plugins by adding `["@babel/plugin-proposal-decorators", { "legacy": true }]` like this:
+
+  ```typescript
+                  plugins: [
+                    [
+                      require.resolve('babel-plugin-named-asset-import'),
+                      {
+                        loaderMap: {
+                          svg: {
+                            ReactComponent:
+                              '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                          },
+                        },
+                      },
+                    ],
+                    #add this line
+                    ["@babel/plugin-proposal-decorators", { "legacy": true }] 
+                  ],
+  ```
+
+  * Finally, run `npm install` and then `npm run start` to start your app. 
+
+  
+
+### References
+
+* MobX
+
+  * https://mobx.js.org/README.html
+
+  * https://github.com/mobxjs/mobx
+  * https://suprise.github.io/mobx-cn/best/react-performance.html
+  * https://medium.com/hackernoon/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254#.a1t9xw4pw
+  * [Chinese] https://segmentfault.com/a/1190000009547437
+  * [Chinese] https://zhuanlan.zhihu.com/p/27448262
+  * [Chinese] https://ithelp.ithome.com.tw/articles/10197513
+  * https://stackblitz.com/edit/react-mobx-take-2?file=store.js
+
+* Differences between Redux and MobX
+  * https://blog.logrocket.com/redux-vs-mobx/
+  * [React Thunk] https://codeburst.io/understanding-redux-thunk-6dbae0241817
+  * [Chinese] https://www.webfalse.com/read/207386/11942891.html

@@ -10,7 +10,7 @@ class App extends Component {
       <button onClick={store.addNumber}>Plus 1</button>
       Now the number is: {store.number}
     </div>
- }s
+ }
 }
 
 export default App;
