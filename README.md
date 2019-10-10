@@ -1,11 +1,9 @@
-# MobX
 
+# Calculator by using MobX and React
 
-
-The Mobx design principle is:
+In this demo, I used react with MobX to create a mini calculator. You could find all source codes in this repository. Before having a look at the code, you may perhaps want to know some basic concepts about MobX. The Mobx design principle is:
 
 *Anything that can be derived from the application state, should be derived. Automatically.*
-
 
 
 ### What is MobX?
@@ -114,13 +112,6 @@ Redux is also an excellent state management library. You may wondering what thei
 
 * `Effectiveness` As is shown in part 2, it's very easy and concise to use MobX in react app. However, when it comes to redux, we have to write a bunch of codes to state our actions and reducers which would lead to a lot of duplications. 
 * `Scalability` Since Redux is more opinionated and expects the reducer functions to be pure, it is easier to scale than MobX. Pure functions are easier to test since they are predictable and simple. This results in maintainable code that can scale. 
-
-
-
-### Demo: Calculator by using MobX and React
-
-In this demo, I used react with MobX to create a mini calculator. You could find all source codes in this repository.  
-
 
 
 ### Things you might want to know while playing with MobX
