@@ -103,6 +103,7 @@ class Counter extends Component {
 
 export default Counter;
 ```
+Note: `@inject` should be placed before `@observer`.
 
 
 
