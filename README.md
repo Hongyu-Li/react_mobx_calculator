@@ -10,7 +10,7 @@ In this demo, I used react with MobX to create a mini calculator. You could find
 
 MobX is a simple and scalable **state management library** transparently applying functional reactive programming (TFRP). The workflow of MobX could be described as below.
 
-![image](./flow.png)
+![image](./public/flow.png)
 
 MobX has only a few core concepts. 
 
