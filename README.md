@@ -1,7 +1,7 @@
 
 # Calculator by using MobX and React
 
-In this demo, I used react with MobX to create a mini calculator. You could find all source codes in this repository. Before having a look at the code, you may perhaps want to know some basic concepts about MobX. The Mobx design principle is:
+This project was inspired by [benjamin Lees](https://github.com/benjaminlees/mobx-react-calculator). In this demo, I used react with MobX to create a mini calculator. You could find all source codes in this repository. Before having a look at the code, you may perhaps want to know some basic concepts about MobX. The Mobx design principle is:
 
 *Anything that can be derived from the application state, should be derived. Automatically.*
 
@@ -203,7 +203,6 @@ I created react app by using `create-react-app` library, however decorators are 
 * MobX
 
   * https://mobx.js.org/README.html
-
   * https://github.com/mobxjs/mobx
   * https://suprise.github.io/mobx-cn/best/react-performance.html
   * https://medium.com/hackernoon/becoming-fully-reactive-an-in-depth-explanation-of-mobservable-55995262a254#.a1t9xw4pw
