@@ -123,7 +123,7 @@ In this demo, I used react with MobX to create a mini calculator. You could find
 
 
 
-###Things you might want to know while playing with MobX
+### Things you might want to know while playing with MobX
 
 Actually, when I implemented the mini calculator demo with using MobX, I've met a tiny but knotty problem. I would write them down here in case you wanna know. 
 
