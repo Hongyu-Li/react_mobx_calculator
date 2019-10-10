@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/react_mobx_calculator/static/css/main.fac88cca.chunk.css",
-    "main.js": "/react_mobx_calculator/static/js/main.06d103c6.chunk.js",
-    "main.js.map": "/react_mobx_calculator/static/js/main.06d103c6.chunk.js.map",
+    "main.js": "/react_mobx_calculator/static/js/main.21ba8c45.chunk.js",
+    "main.js.map": "/react_mobx_calculator/static/js/main.21ba8c45.chunk.js.map",
     "runtime-main.js": "/react_mobx_calculator/static/js/runtime-main.53b60c02.js",
     "runtime-main.js.map": "/react_mobx_calculator/static/js/runtime-main.53b60c02.js.map",
-    "static/js/2.51cfd890.chunk.js": "/react_mobx_calculator/static/js/2.51cfd890.chunk.js",
-    "static/js/2.51cfd890.chunk.js.map": "/react_mobx_calculator/static/js/2.51cfd890.chunk.js.map",
+    "static/js/2.75edd814.chunk.js": "/react_mobx_calculator/static/js/2.75edd814.chunk.js",
+    "static/js/2.75edd814.chunk.js.map": "/react_mobx_calculator/static/js/2.75edd814.chunk.js.map",
     "index.html": "/react_mobx_calculator/index.html",
-    "precache-manifest.c1455465b1fa8a890bd7aad87b9a286e.js": "/react_mobx_calculator/precache-manifest.c1455465b1fa8a890bd7aad87b9a286e.js",
+    "precache-manifest.d04eea2ce9e3b64ae7f9d5e4897cafd2.js": "/react_mobx_calculator/precache-manifest.d04eea2ce9e3b64ae7f9d5e4897cafd2.js",
     "service-worker.js": "/react_mobx_calculator/service-worker.js",
     "static/css/main.fac88cca.chunk.css.map": "/react_mobx_calculator/static/css/main.fac88cca.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.53b60c02.js",
-    "static/js/2.51cfd890.chunk.js",
+    "static/js/2.75edd814.chunk.js",
     "static/css/main.fac88cca.chunk.css",
-    "static/js/main.06d103c6.chunk.js"
+    "static/js/main.21ba8c45.chunk.js"
   ]
 }
