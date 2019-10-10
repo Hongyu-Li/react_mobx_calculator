@@ -1,0 +1,38 @@
+.calculator {
+    border: 1px solid black;
+    width: 50%;
+    height: 500px;
+    margin-left: 25%;
+    margin-right: auto;
+    margin-top: 5%;
+    background-color:#1a1a1a;
+}
+
+.calculation {
+    width: 70%;
+    height: 10%;
+    display: block;
+    background-color: white;
+    border: 1px solid black;
+    margin-left: 15%;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+.operation-board {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: 15% 15% 15% 15% 15%;
+    grid-column-gap: 5%;
+    grid-row-gap: 5%;
+    width: 70%;
+    height: 50%;
+    margin-left: 15%;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+.operations {
+    background-color: white;
+    font-size: 20px;
+}

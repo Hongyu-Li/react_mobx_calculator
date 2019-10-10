@@ -3,7 +3,6 @@ import './index.css';
 
 class Header extends Component {
   render(){
-    
     return (
     <div className= "header">
         <ul>
